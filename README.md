@@ -1,2 +1,2 @@
 # Heap
-Binary heap, min-heap.
+Binary heap, max-heap.
