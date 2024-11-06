@@ -34,16 +34,33 @@ class MaxHeap:
         self.down(0, len(self.heap))
         return max_value
 
+    def min(self):
+        if len(self.heap) == 0:
+            return None
+
+        start = (len(self.heap) - 1) // 2 + 1
+        min_value = min(self.heap[start:])
+        min_index = start + self.heap[start:].index(min_value)
+
+        self.heap.pop(min_index)
+
+        return min_value
+
 
 heap = MaxHeap()
 
+heap.push(5)
+heap.push(3)
+heap.push(17)
 heap.push(10)
-heap.push(20)
-heap.push(30)
+heap.push(84)
+heap.push(19)
+heap.push(6)
 
 print("Heap após inserções:", heap.heap)
 
 
 print("Maior elemento extraído:", heap.max())
+print('Menor elemento extraído:', heap.min())
 print("Heap após extração:", heap.heap)
 
