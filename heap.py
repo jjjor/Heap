@@ -27,12 +27,32 @@ class MaxHeap:
 
     def max(self):
         if len(self.heap) == 0:
+
             return None
 
         max_value = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self.down(0, len(self.heap))
+
+        if len(self.heap) > 1:
+            self.heap[0] = self.heap.pop()
+            self.down(0, len(self.heap))
+        else:
+             self.heap.pop()
+
         return max_value
+    
+    def change_priority(self, index, new_priority):
+         if index < 0 or index >= len(self.heap):
+            return print("Índice inválido.")
+         
+         old_value = self.heap[index]
+         self.heap[index] = new_priority
+
+         if new_priority > old_value:
+             self.up(index)
+
+         elif new_priority < old_value:
+             self.down(index, len(self.heap))
+            
 
     def min(self):
         if len(self.heap) == 0:
@@ -45,6 +65,21 @@ class MaxHeap:
         self.heap.pop(min_index)
 
         return min_value
+    
+    def heapsort(self):
+        original = self.heap[:]
+        sorted_array = []
+
+        while self.heap:
+            sorted_array.append(self.max())
+
+        sorted_array.reverse()
+        self.heap = original
+
+        return sorted_array
+    
+    def get_high_priority(self):
+        return self.heap[0]
 
 
 heap = MaxHeap()
@@ -58,9 +93,11 @@ heap.push(19)
 heap.push(6)
 
 print("Heap após inserções:", heap.heap)
+for i in range(5):
+    heap.max()
+    print("Heap após remoção:", heap.heap)
+# heap.change_priority(2, 4)
+# print('Heap depois da alteração de prioridade:', heap.heap)
 
-
-print("Maior elemento extraído:", heap.max())
-print('Menor elemento extraído:', heap.min())
-print("Heap após extração:", heap.heap)
-
+# print('Elemento de maior prioridade da heap:', heap.get_high_priority())
+# print('Heap reordenado:', heap.heapsort())
